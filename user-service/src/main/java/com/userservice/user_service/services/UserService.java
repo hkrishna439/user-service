@@ -7,6 +7,8 @@ import com.userservice.user_service.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -28,5 +30,12 @@ public class UserService {
         userRepository.save(user);
 
         return user;
+    }
+
+    public User getUser(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+
+        return user.orElse(null);
+
     }
 }
